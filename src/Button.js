@@ -1,5 +1,6 @@
 class Button {
-    constructor(label, onClick) {
+    constructor(className, label, onClick) {
+        this.className = className
         this.label = label
         this.onClick = onClick
     }
@@ -7,7 +8,6 @@ class Button {
     render() {
         const button = document.createElement('button')
 
-        //style button
         button.style.height = '46px'
         button.style.padding = '10px'
         button.style.fontSize = '1rem'
@@ -16,6 +16,8 @@ class Button {
         button.style.borderRadius = '6px'
         button.style.outline = 'none'
         button.style.cursor = 'pointer'
+
+        button.classList.add(this.className)
 
         button.innerHTML = this.label
 

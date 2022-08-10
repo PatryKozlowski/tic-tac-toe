@@ -1,5 +1,6 @@
 class Box {
-    constructor(element, index, onClick) {
+    constructor(className, element, index, onClick) {
+        this.className = className
         this.element = element
         this.index = index
         this.onClick = onClick
@@ -8,12 +9,7 @@ class Box {
     render() {
         const divBox = document.createElement('div')
 
-        divBox.style.width = '50px'
-        divBox.style.height = '50px'
-        divBox.style.display = 'flex'
-        divBox.style.alignItems = 'center'
-        divBox.style.justifyContent = 'center'
-        divBox.style.backgroundColor = 'red'
+        divBox.classList.add(this.className)
 
         divBox.setAttribute('data-id', this.index)
 

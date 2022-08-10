@@ -1,13 +1,31 @@
+import Button from './Button'
 class Modal {
+    constructor(className, onClick, gameStatus) {
+        this.className = className
+        this.onClick = onClick
+        this.gameStatus = gameStatus
+    }
+
     render() {
         const modalDiv = document.createElement('div')
 
-        modalDiv.style.width = '50px'
-        modalDiv.style.height = '50px'
-        modalDiv.style.display = 'flex'
-        modalDiv.style.alignItems = 'center'
-        modalDiv.style.justifyContent = 'center'
-        modalDiv.style.backgroundColor = 'red'
+        modalDiv.classList.add(this.className)
+
+        if (this.gameStatus) {
+            const buttonElementStartGame = new Button(
+                'btn',
+                'Start game',
+                this.onClick
+            )
+            modalDiv.appendChild(buttonElementStartGame.render())
+        } else {
+            const buttonElementResetGame = new Button(
+                'btn',
+                'Reset game',
+                this.onClick
+            )
+            modalDiv.appendChild(buttonElementResetGame.render())
+        }
 
         return modalDiv
     }
