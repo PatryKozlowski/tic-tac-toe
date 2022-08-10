@@ -1,5 +1,5 @@
-import Box from './Box'
-import Modal from './Modal'
+import Box from './components/Box'
+import Modal from './components/Modal'
 
 class App {
     constructor() {
@@ -10,6 +10,8 @@ class App {
 
         this.isGame = true
         this.isGameStart = true
+
+        this.sign = ''
 
         this.board = ['', '', '', '', '', '', '', '', '']
         this.indexArray = [0, 1, 2, 3, 4, 5, 6, 7, 8]
@@ -23,8 +25,6 @@ class App {
             [0, 4, 8],
             [2, 4, 6],
         ]
-
-        this.player = 'X'
     }
 
     randomizingComputerPosition(array) {
@@ -48,8 +48,9 @@ class App {
         const element = this.container.querySelector(`[data-id="${position}"]`)
         this.removeIndexFromArray(position)
 
-        this.board[position] = 'O'
-        element.innerText = 'O'
+        this.board[position] = this.changePlayer()
+        element.innerText = this.changePlayer()
+        console.log(this.changePlayer())
     }
 
     playerMove(e) {
@@ -57,7 +58,7 @@ class App {
 
         this.removeIndexFromArray(divID)
 
-        this.board[divID] = this.player
+        this.board[divID] = this.sign
     }
 
     game(e) {
@@ -71,8 +72,13 @@ class App {
     }
 
     changePlayer() {
-        this.player = this.player === 'X' ? 'O' : 'X'
-        return this.player
+        const sign = this.sign === 'X' ? 'O' : 'X'
+        return sign
+    }
+
+    selectSign(selectedSign) {
+        this.sign = selectedSign
+        console.log(selectedSign)
     }
 
     checkingWinner() {
@@ -129,8 +135,12 @@ class App {
         this.isGameStart = false
         const modalElement = new Modal(
             'modal',
-            () => this.startGame(),
-            this.isGame
+            {
+                startGame: () => this.startGame(),
+                selectSign: (choice) => this.selectSign(choice),
+            },
+            this.isGame,
+            null
         )
         return this.container.appendChild(modalElement.render())
     }
@@ -139,7 +149,9 @@ class App {
         this.clearRender()
         const modalElement = new Modal(
             'modal',
-            () => this.resetGame(),
+            {
+                resetGame: () => this.resetGame(),
+            },
             this.isGame,
             this.isWinner
         )
