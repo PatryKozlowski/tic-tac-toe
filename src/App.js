@@ -1,3 +1,5 @@
+import Box from './Box'
+
 class App {
     constructor() {
         this.container = null
@@ -104,25 +106,9 @@ class App {
     }
 
     drawBoard() {
-        this.board.forEach((element, index) => {
-            const div = document.createElement('div')
-
-            div.style.width = '50px'
-            div.style.height = '50px'
-            div.style.display = 'flex'
-            div.style.alignItems = 'center'
-            div.style.justifyContent = 'center'
-            div.style.backgroundColor = 'red'
-
-            div.setAttribute('data-id', index)
-
-            div.addEventListener('click', (e) => {
-                this.game(e)
-            })
-
-            div.innerText = element
-
-            return this.container.appendChild(div)
+        this.board.map((element, index) => {
+            const box = new Box(element, index, (e) => this.game(e))
+            return this.container.appendChild(box.render())
         })
     }
 
