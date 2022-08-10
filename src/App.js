@@ -1,4 +1,5 @@
 import Box from './Box'
+import Button from './Button'
 
 class App {
     constructor() {
@@ -6,6 +7,7 @@ class App {
 
         this.isDraw = false
         this.isGame = true
+        this.isGameStart = true
 
         this.board = ['', '', '', '', '', '', '', '', '']
         this.indexArray = [0, 1, 2, 3, 4, 5, 6, 7, 8]
@@ -112,18 +114,37 @@ class App {
         })
     }
 
+    addStyleToContainer() {
+        this.container.style.display = 'grid'
+        this.container.style.gap = '1px'
+        this.container.style.gridTemplateColumns = 'repeat(3, 0fr)'
+    }
+
+    removeButton() {
+        const button = document.querySelector('button')
+        button.remove()
+    }
+
+    startGame() {
+        this.removeButton()
+        this.addStyleToContainer()
+        this.drawBoard()
+    }
+
     render() {
         if (!this.container) {
             this.container = document.createElement('div')
-
-            this.container.style.display = 'grid'
-            this.container.style.gap = '1px'
-            this.container.style.gridTemplateColumns = 'repeat(3, 0fr)'
         }
 
         this.container.innerHTML = ''
 
-        this.drawBoard()
+        if (this.isGameStart) {
+            const buttonElementStartGame = new Button('Start game', () => {
+                this.isGameStart = false
+                this.startGame()
+            })
+            this.container.appendChild(buttonElementStartGame.render())
+        } else this.drawBoard()
 
         return this.container
     }
