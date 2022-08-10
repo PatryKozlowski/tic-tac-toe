@@ -50,7 +50,6 @@ class App {
 
         this.board[position] = this.changePlayer()
         element.innerText = this.changePlayer()
-        console.log(this.changePlayer())
     }
 
     playerMove(e) {
@@ -78,7 +77,10 @@ class App {
 
     selectSign(selectedSign) {
         this.sign = selectedSign
-        console.log(selectedSign)
+    }
+
+    showModalAfterGame(delayTime = 0) {
+        setTimeout(() => this.drawModalResetGame(), delayTime)
     }
 
     checkingWinner() {
@@ -99,21 +101,21 @@ class App {
         if (!winnerO && !winnerX && this.board !== '' && this.isDraw === true) {
             this.isWinner = 'Draw'
             this.isGame = false
-            setTimeout(() => this.drawModalResetGame(), 500)
+            this.showModalAfterGame()
             return
         }
 
         if (winnerO) {
             this.isWinner = 'Win O'
             this.isGame = false
-            setTimeout(() => this.drawModalResetGame(), 500)
+            this.showModalAfterGame()
             return
         }
 
         if (winnerX) {
             this.isWinner = 'Win X'
             this.isGame = false
-            setTimeout(() => this.drawModalResetGame(), 500)
+            this.showModalAfterGame()
             return
         }
     }
@@ -167,6 +169,8 @@ class App {
 
     startGame() {
         this.isGameStart = false
+
+        if (this.sign === '') this.sign = 'X'
 
         this.removeModal()
         this.addStyleToContainer()

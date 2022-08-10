@@ -6,6 +6,7 @@ class Radio {
 
     render() {
         const inputRadioContainer = document.createElement('div')
+        inputRadioContainer.classList.add('container__radio')
         this.options.forEach(({ label, value, id, name }) => {
             const inputRadioLabel = document.createElement('label')
             const inputRadio = document.createElement('input')

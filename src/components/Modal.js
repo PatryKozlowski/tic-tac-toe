@@ -3,9 +3,9 @@ import Message from './Message'
 import Radio from './Radio'
 
 class Modal {
-    constructor(className, onClick, gameStatus, message) {
+    constructor(className, fn, gameStatus, message) {
         this.className = className
-        this.onClick = onClick
+        this.fn = fn
         this.gameStatus = gameStatus
         this.message = message
     }
@@ -28,7 +28,7 @@ class Modal {
                     name: 'select_sign',
                 },
             ],
-            this.onClick.selectSign
+            this.fn.selectSign
         )
 
         modalDivContainer.style.width = '50%'
@@ -44,7 +44,7 @@ class Modal {
             const buttonElementStartGame = new Button(
                 'btn',
                 'Start game',
-                this.onClick.startGame
+                this.fn.startGame
             )
             //modalDiv.appendChild(buttonElementStartGame.render())
             modalDivContainer.appendChild(buttonElementStartGame.render())
@@ -53,7 +53,7 @@ class Modal {
             const buttonElementResetGame = new Button(
                 'btn',
                 'Reset game',
-                this.onClick.resetGame
+                this.fn.resetGame
             )
 
             const messageElement = new Message(this.message)
