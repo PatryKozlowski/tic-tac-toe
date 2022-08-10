@@ -6,6 +6,7 @@ class App {
         this.container = null
 
         this.isDraw = false
+        this.isWinner = ''
 
         this.isGame = true
         this.isGameStart = true
@@ -90,21 +91,21 @@ class App {
             })
         })
         if (!winnerO && !winnerX && this.board !== '' && this.isDraw === true) {
-            console.log('Draw')
+            this.isWinner = 'Draw'
             this.isGame = false
             setTimeout(() => this.drawModalResetGame(), 500)
             return
         }
 
         if (winnerO) {
-            console.log('Winn O')
+            this.isWinner = 'Win O'
             this.isGame = false
             setTimeout(() => this.drawModalResetGame(), 500)
             return
         }
 
         if (winnerX) {
-            console.log('Winn X')
+            this.isWinner = 'Win X'
             this.isGame = false
             setTimeout(() => this.drawModalResetGame(), 500)
             return
@@ -139,7 +140,8 @@ class App {
         const modalElement = new Modal(
             'modal',
             () => this.resetGame(),
-            this.isGame
+            this.isGame,
+            this.isWinner
         )
         return this.container.appendChild(modalElement.render())
     }
@@ -161,6 +163,7 @@ class App {
 
     resetGame() {
         this.isDraw = false
+        this.isWinner = ''
         this.isGame = true
         this.isGameStart = true
 
