@@ -101,21 +101,21 @@ class App {
         if (!winnerO && !winnerX && this.board !== '' && this.isDraw === true) {
             this.isWinner = 'Draw'
             this.isGame = false
-            this.showModalAfterGame()
+            //this.showModalAfterGame()
             return
         }
 
         if (winnerO) {
             this.isWinner = 'Win O'
             this.isGame = false
-            this.showModalAfterGame()
+            //this.showModalAfterGame()
             return
         }
 
         if (winnerX) {
             this.isWinner = 'Win X'
             this.isGame = false
-            this.showModalAfterGame()
+            //this.showModalAfterGame()
             return
         }
     }
@@ -211,6 +211,8 @@ class App {
 
         if (this.isGameStart) {
             this.drawModalStartGame()
+        } else if (!this.isGame) {
+            this.showModalAfterGame()
         } else {
             this.drawBoard()
         }

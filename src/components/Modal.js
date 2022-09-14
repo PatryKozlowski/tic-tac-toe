@@ -31,12 +31,7 @@ class Modal {
             this.fn.selectSign
         )
 
-        modalDivContainer.style.width = '50%'
-        modalDivContainer.style.height = '25%'
-        modalDivContainer.style.display = 'flex'
-        modalDivContainer.style.flexDirection = 'column'
-        modalDivContainer.style.alignItems = 'stretch'
-        modalDivContainer.style.justifyContent = 'space-between'
+        modalDivContainer.classList.add('modal__container')
 
         modalDiv.classList.add(this.className)
 
@@ -46,7 +41,7 @@ class Modal {
                 'Start game',
                 this.fn.startGame
             )
-            //modalDiv.appendChild(buttonElementStartGame.render())
+
             modalDivContainer.appendChild(buttonElementStartGame.render())
             modalDivContainer.appendChild(radioElement.render())
         } else {
@@ -61,6 +56,7 @@ class Modal {
             modalDivContainer.appendChild(messageElement.render())
             modalDivContainer.appendChild(buttonElementResetGame.render())
         }
+
         modalDiv.appendChild(modalDivContainer)
 
         return modalDiv
