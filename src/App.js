@@ -67,6 +67,7 @@ class App {
         this.playerMove(e)
         this.computerMove()
         this.checkingWinner()
+        this.clearRender()
         this.render()
     }
 
@@ -97,24 +98,25 @@ class App {
             return combination.every((index) => {
                 return this.board[index].includes('X')
             })
+
         })
         if (!winnerO && !winnerX && this.board !== '' && this.isDraw === true) {
-            this.isWinner = 'Draw'
             this.isGame = false
+            this.isWinner = 'Draw'
             //this.showModalAfterGame()
             return
         }
 
         if (winnerO) {
-            this.isWinner = 'Win O'
             this.isGame = false
+            this.isWinner = 'Win O'
             //this.showModalAfterGame()
             return
         }
 
         if (winnerX) {
-            this.isWinner = 'Win X'
             this.isGame = false
+            this.isWinner = 'Win X'
             //this.showModalAfterGame()
             return
         }
@@ -148,15 +150,15 @@ class App {
     }
 
     drawModalResetGame() {
-        this.clearRender()
         const modalElement = new Modal(
             'modal',
             {
                 resetGame: () => this.resetGame(),
             },
             this.isGame,
-            this.isWinner
-        )
+            'Zresetować grę?'
+            )
+        // this.clearRender()
         return this.container.appendChild(modalElement.render())
     }
 
@@ -207,12 +209,17 @@ class App {
             this.container = document.createElement('div')
         }
 
-        this.clearRender()
-
         if (this.isGameStart) {
             this.drawModalStartGame()
         } else if (!this.isGame) {
-            this.showModalAfterGame()
+            this.drawBoard()
+            setTimeout(() => {
+                alert(this.isWinner)
+                this.clearRender()
+            }, 100)
+            setTimeout(() => {
+                this.showModalAfterGame()
+            }, 300)
         } else {
             this.drawBoard()
         }
